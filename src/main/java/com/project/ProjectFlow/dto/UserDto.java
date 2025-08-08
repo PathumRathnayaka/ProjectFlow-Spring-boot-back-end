@@ -1,19 +1,11 @@
-package com.project.ProjectFlow.model;
+package com.project.ProjectFlow.dto;
 
 import com.project.ProjectFlow.util.Role;
-import jakarta.persistence.*;
-
-import lombok.ToString;
-
-import java.time.LocalDateTime;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 
 
-@Entity
-@Table(name = "user")
-@ToString
-public class User {
-
-    @Id
+public class UserDto {
     private String id;
 
     private String name;
@@ -26,6 +18,20 @@ public class User {
     private String teamId;
     private String department;
     private boolean isActive;
+
+    public UserDto() {
+    }
+
+    public UserDto(String id, String name, String email, String avatar, Role role, String teamId, String department, boolean isActive) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.avatar = avatar;
+        this.role = role;
+        this.teamId = teamId;
+        this.department = department;
+        this.isActive = isActive;
+    }
 
     public String getId() {
         return id;
@@ -90,17 +96,4 @@ public class User {
     public void setActive(boolean active) {
         isActive = active;
     }
-
-    public LocalDateTime getJoinedAt() {
-        return joinedAt;
-    }
-
-    public void setJoinedAt(LocalDateTime joinedAt) {
-        this.joinedAt = joinedAt;
-    }
-
-    private LocalDateTime joinedAt;
-
-
-
 }
