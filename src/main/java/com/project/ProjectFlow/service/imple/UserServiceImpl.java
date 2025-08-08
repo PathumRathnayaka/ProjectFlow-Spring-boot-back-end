@@ -1,7 +1,6 @@
 package com.project.ProjectFlow.service.imple;
 
 import com.project.ProjectFlow.dto.UserDto;
-import com.project.ProjectFlow.entity.UserEntity;
 import com.project.ProjectFlow.model.User;
 import com.project.ProjectFlow.repository.UserRepository;
 import com.project.ProjectFlow.service.UserService;
@@ -9,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 

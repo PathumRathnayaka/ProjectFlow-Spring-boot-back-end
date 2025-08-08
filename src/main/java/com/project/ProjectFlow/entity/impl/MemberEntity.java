@@ -1,4 +1,4 @@
-package com.project.ProjectFlow.entity;
+package com.project.ProjectFlow.entity.impl;
 
 import com.project.ProjectFlow.util.Role;
 import jakarta.persistence.*;
@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "user")
-public class UserEntity {
+public class MemberEntity {
     @Id
     private String id;
 
