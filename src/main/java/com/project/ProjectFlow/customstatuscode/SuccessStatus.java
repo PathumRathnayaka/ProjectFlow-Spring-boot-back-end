@@ -1,6 +1,8 @@
 package com.project.ProjectFlow.customstatuscode;
 
-public class SuccessStatus {
+import com.project.ProjectFlow.dto.CustomStatus;
+
+public class SuccessStatus implements CustomStatus {
     private int statusCode;
     private String statusMessage;
 

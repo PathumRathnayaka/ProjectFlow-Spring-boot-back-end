@@ -1,12 +1,13 @@
 package com.project.ProjectFlow.dto.impl;
 
+import com.project.ProjectFlow.dto.CustomStatus;
 import com.project.ProjectFlow.util.Priority;
 import com.project.ProjectFlow.util.Status;
 import jakarta.validation.constraints.*;
 
 import java.time.LocalDateTime;
 
-public class ProjectDto {
+public class ProjectDto implements CustomStatus {
 
     @NotBlank(message = "Project ID is required")
     private String id;
@@ -47,6 +48,25 @@ public class ProjectDto {
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+
+    public ProjectDto() {
+    }
+
+    public ProjectDto(String id, String name, String description, Status status, Priority priority, String startDate, String dueDate, int progress, String teamId, String ownerId, String folderId, LocalDateTime createdAt, LocalDateTime updatedAt) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.status = status;
+        this.priority = priority;
+        this.startDate = startDate;
+        this.dueDate = dueDate;
+        this.progress = progress;
+        this.teamId = teamId;
+        this.ownerId = ownerId;
+        this.folderId = folderId;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
 
     // Getters and Setters
     public String getId() { return id; }
