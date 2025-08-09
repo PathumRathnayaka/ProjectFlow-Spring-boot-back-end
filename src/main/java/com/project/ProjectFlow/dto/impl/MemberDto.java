@@ -1,14 +1,22 @@
-package com.project.ProjectFlow.dto;
+package com.project.ProjectFlow.dto.impl;
 
 import com.project.ProjectFlow.util.Role;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 
 
-public class UserDto {
+public class MemberDto {
     private String id;
 
+    @NotBlank(message = "Name is required")
+    @Pattern(regexp = "^[A-Za-z ]+$", message = "Name must contain only letters and spaces")
     private String name;
+    @NotBlank(message = "Email is required")
+    @Email(message = "Email should be valid")
+    @Pattern(regexp = "^[A-Za-z0-9._%+-]+@gmail\\.com$", message = "Email must be a Gmail address")
     private String email;
     private String avatar;
 
@@ -19,10 +27,10 @@ public class UserDto {
     private String department;
     private boolean isActive;
 
-    public UserDto() {
+    public MemberDto() {
     }
 
-    public UserDto(String id, String name, String email, String avatar, Role role, String teamId, String department, boolean isActive) {
+    public MemberDto(String id, String name, String email, String avatar, Role role, String teamId, String department, boolean isActive) {
         this.id = id;
         this.name = name;
         this.email = email;
