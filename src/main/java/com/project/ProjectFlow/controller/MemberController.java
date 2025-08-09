@@ -1,36 +1,34 @@
 package com.project.ProjectFlow.controller;
 
+import com.project.ProjectFlow.customstatuscode.SuccessStatus;
 import com.project.ProjectFlow.dto.impl.MemberDto;
-import com.project.ProjectFlow.model.User;
-import com.project.ProjectFlow.service.UserService;
+import com.project.ProjectFlow.service.imple.MemberServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 
-@RequestMapping("/user")
-public class UserController {
+@RequestMapping("/member")
+public class MemberController {
 
     @Autowired
-    UserService userService;
+    MemberServiceImpl memberService;
 
 
     @PostMapping
-    public ResponseEntity<User> saveUser(@RequestBody MemberDto memberDto){
-        return userService.saveUser(memberDto);
+    public SuccessStatus saveUser(@RequestBody MemberDto memberDto){
+        return memberService.save(memberDto);
     }
 
-    @GetMapping
+    /*@GetMapping
     public ResponseEntity<List<User>> getAllUser(){
-        return userService.getUserAll();
+        return memberService.getUserAll();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<User> getUserById(@PathVariable String id){
-        return userService.getUserById(id);
+        return memberService.getUserById(id);
     }
 
     @PutMapping("/{id}")
@@ -41,6 +39,6 @@ public class UserController {
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteUser (@PathVariable String id){
         return userService.deleteUser(id);
-    }
+    }*/
 
 }

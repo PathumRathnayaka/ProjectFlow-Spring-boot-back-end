@@ -9,6 +9,7 @@ import java.util.List;
 
 
 @Entity
+@Table(name = "task")
 public class TaskEntity {
     @Id
     private String id;

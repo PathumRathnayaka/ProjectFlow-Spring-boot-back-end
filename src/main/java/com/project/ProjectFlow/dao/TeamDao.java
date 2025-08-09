@@ -1,7 +1,9 @@
 package com.project.ProjectFlow.dao;
 
-import com.project.ProjectFlow.model.Team;
+import com.project.ProjectFlow.entity.impl.TeamEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface TeamDao extends JpaRepository<Team,String> {
+@Repository
+public interface TeamDao extends JpaRepository<TeamEntity,String> {
 }

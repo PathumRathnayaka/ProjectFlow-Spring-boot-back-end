@@ -3,14 +3,12 @@ package com.project.ProjectFlow.entity.impl;
 import com.project.ProjectFlow.entity.SuperEntity;
 import com.project.ProjectFlow.util.Priority;
 import com.project.ProjectFlow.util.Status;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "project")
 public class ProjectEntity implements SuperEntity {
     @Id
     private String id;

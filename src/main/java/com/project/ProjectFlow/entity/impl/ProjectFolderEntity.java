@@ -3,10 +3,12 @@ package com.project.ProjectFlow.entity.impl;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 import java.util.List;
 
 @Entity
+@Table(name = "projectfolder")
 public class ProjectFolderEntity {
     @Id
     private String id;
