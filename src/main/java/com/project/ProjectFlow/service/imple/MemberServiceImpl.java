@@ -22,12 +22,35 @@ public class MemberServiceImpl implements MemberService {
     @Autowired
     private Mapping mapping;
 
-
+    @Override
     public SuccessStatus save(MemberDto dto) {
         MemberEntity memberEntity = mapping.toMemberEntity(dto);
         memberDao.save(memberEntity);
         return new SuccessStatus(HttpStatus.CREATED.value(),"Member saved successfully!");
     }
+
+    @Override
+    public SuccessStatus delete(String id) {
+        return null;
+    }
+
+    @Override
+    public SuccessStatus update(String id, MemberDto dto) {
+        return null;
+    }
+
+    @Override
+    public MemberDto get(String id) {
+        return null;
+    }
+
+    @Override
+    public List<MemberDto> getAll() {
+        return List.of();
+    }
+
+
+
 
 
 }

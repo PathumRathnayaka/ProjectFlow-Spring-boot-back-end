@@ -1,4 +1,6 @@
 package com.project.ProjectFlow.service;
 
-public interface MemberService {
+import com.project.ProjectFlow.dto.impl.MemberDto;
+
+public interface MemberService extends CRUDUtil<MemberDto>{
 }
