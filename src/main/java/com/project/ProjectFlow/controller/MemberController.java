@@ -41,7 +41,7 @@ public class MemberController {
     }
 
     @PutMapping("/{id}")
-    public CustomStatus updateMember(@Valid @RequestBody MemberDto memberDto,@PathVariable String id, BindingResult bindingResult){
+    public CustomStatus updateMember(@Valid @RequestBody MemberDto memberDto, BindingResult bindingResult, @PathVariable String id){
 
         if (bindingResult.hasErrors()) {
             // Collect first error message (you can customize to collect all)
