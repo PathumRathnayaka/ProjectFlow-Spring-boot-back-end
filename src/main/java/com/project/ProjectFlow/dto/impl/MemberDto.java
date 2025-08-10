@@ -3,6 +3,7 @@ package com.project.ProjectFlow.dto.impl;
 import com.project.ProjectFlow.dto.CustomStatus;
 import com.project.ProjectFlow.util.Role;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
 import java.time.LocalDateTime;
@@ -13,6 +14,8 @@ public class MemberDto implements CustomStatus {
     @NotBlank(message = "Name is required")
     private String name;
 
+    @NotBlank(message = "Email is required")
+    @Email(message = "Invalid email format. It should be like example@gmail.com")
     private String email;
     private String avatar;
     private Role role;
@@ -52,11 +55,11 @@ public class MemberDto implements CustomStatus {
         this.name = name;
     }
 
-    public String getEmail() {
+    public @NotBlank(message = "Email is required") String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
+    public void setEmail(@NotBlank(message = "Email is required") String email) {
         this.email = email;
     }
 

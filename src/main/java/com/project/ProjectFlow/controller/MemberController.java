@@ -1,5 +1,6 @@
 package com.project.ProjectFlow.controller;
 
+import com.project.ProjectFlow.customstatuscode.ErrorStatus;
 import com.project.ProjectFlow.customstatuscode.SuccessStatus;
 import com.project.ProjectFlow.dto.CustomStatus;
 import com.project.ProjectFlow.dto.impl.MemberDto;
@@ -30,7 +31,7 @@ public class MemberController {
             String errorMessage = fieldError.getDefaultMessage();
 
             // Return validation error wrapped in SuccessStatus
-            return new SuccessStatus(HttpStatus.BAD_REQUEST.value(), errorMessage);
+            return new ErrorStatus(HttpStatus.BAD_REQUEST.value(), errorMessage);
         }
 
         // No errors, proceed normally
