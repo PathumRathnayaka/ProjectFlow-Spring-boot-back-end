@@ -71,7 +71,6 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public List<MemberDto> getAll() {
-        System.out.println("getall working");
         return MemberMapping.asMemberDtoList(memberDao.findAll());
 
     }
