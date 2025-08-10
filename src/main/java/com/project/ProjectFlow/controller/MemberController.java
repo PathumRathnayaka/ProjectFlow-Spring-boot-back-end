@@ -13,6 +13,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 
 @RequestMapping("/member")
@@ -24,7 +26,7 @@ public class MemberController {
 
 
     @PostMapping
-    public CustomStatus saveUser(@Valid @RequestBody MemberDto memberDto, BindingResult bindingResult){
+    public CustomStatus saveMember(@Valid @RequestBody MemberDto memberDto, BindingResult bindingResult){
         if (bindingResult.hasErrors()) {
             // Collect first error message (you can customize to collect all)
             FieldError fieldError = bindingResult.getFieldErrors().get(0);
@@ -36,6 +38,26 @@ public class MemberController {
 
         // No errors, proceed normally
         return memberService.save(memberDto);
+    }
+
+    @PutMapping("/{id}")
+    public CustomStatus updateMember(@Valid @RequestBody MemberDto memberDto,@PathVariable String id, BindingResult bindingResult){
+
+        if (bindingResult.hasErrors()) {
+            // Collect first error message (you can customize to collect all)
+            FieldError fieldError = bindingResult.getFieldErrors().get(0);
+            String errorMessage = fieldError.getDefaultMessage();
+
+            // Return validation error wrapped in SuccessStatus
+            return new ErrorStatus(HttpStatus.BAD_REQUEST.value(), errorMessage);
+        }
+        return memberService.update(id,memberDto);
+
+    }
+
+    @GetMapping
+    public List<MemberDto> getAllMembers(){
+        return memberService.getAll();
     }
 
 
