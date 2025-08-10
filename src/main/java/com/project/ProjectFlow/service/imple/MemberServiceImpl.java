@@ -6,6 +6,7 @@ import com.project.ProjectFlow.dao.MemberDao;
 import com.project.ProjectFlow.dto.CustomStatus;
 import com.project.ProjectFlow.dto.impl.MemberDto;
 import com.project.ProjectFlow.entity.impl.MemberEntity;
+import com.project.ProjectFlow.exception.ResourceNotFoundException;
 import com.project.ProjectFlow.service.MemberService;
 import com.project.ProjectFlow.util.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,46 +36,37 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public CustomStatus delete(String id) {
-        Optional<MemberEntity> byId = memberDao.findById(id);
-        if (byId.isPresent()) {
-            memberDao.deleteById(id);
-            return new SuccessStatus(HttpStatus.OK.value(), "Member deleted successfully!");
-        } else {
-            return new ErrorStatus(HttpStatus.NOT_FOUND.value(), "Member not found!");
-        }
+        MemberEntity memberEntity = memberDao.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Member with ID " + id + " not found"));
+
+        memberDao.delete(memberEntity);
+        return new SuccessStatus(HttpStatus.OK.value(), "Member deleted successfully!");
     }
 
     @Override
     public CustomStatus update(String id, MemberDto dto) {
-        Optional<MemberEntity> byId = memberDao.findById(id);
-        if (byId.isPresent()) {
-            MemberEntity memberEntity = byId.get();
-            memberEntity.setName(dto.getName());
-            memberEntity.setEmail(dto.getEmail());
-            memberEntity.setAvatar(dto.getAvatar());
-            memberEntity.setRole(dto.getRole());
-            memberEntity.setTeamId(dto.getTeamId());
-            memberEntity.setDepartment(dto.getDepartment());
-            memberEntity.setActive(dto.isActive());
-            memberEntity.setJoinedAt(dto.getJoinedAt());
+        MemberEntity memberEntity = memberDao.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Member with ID " + id + " not found"));
 
-            memberDao.save(memberEntity);
+        memberEntity.setName(dto.getName());
+        memberEntity.setEmail(dto.getEmail());
+        memberEntity.setAvatar(dto.getAvatar());
+        memberEntity.setRole(dto.getRole());
+        memberEntity.setTeamId(dto.getTeamId());
+        memberEntity.setDepartment(dto.getDepartment());
+        memberEntity.setActive(dto.isActive());
+        memberEntity.setJoinedAt(dto.getJoinedAt());
 
-            return new SuccessStatus(HttpStatus.OK.value(), "Member updated successfully!");
-        } else {
-            return new ErrorStatus(HttpStatus.NOT_FOUND.value(), "Member not found!");
-        }
+        memberDao.save(memberEntity);
+        return new SuccessStatus(HttpStatus.OK.value(), "Member updated successfully!");
 
     }
 
     @Override
     public MemberDto get(String id) {
-        if (memberDao.existsById(id)){
-            MemberEntity referenceById = memberDao.getReferenceById(id);
-            MemberDto memberDto = MemberMapping.toMemberDto(referenceById);
-            return memberDto;
-        }
-        return null;
+        MemberEntity memberEntity = memberDao.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Member with ID " + id + " not found"));
+        return MemberMapping.toMemberDto(memberEntity);
     }
 
     @Override
