@@ -2,6 +2,7 @@ package com.project.ProjectFlow.service.imple;
 
 import com.project.ProjectFlow.customstatuscode.SuccessStatus;
 import com.project.ProjectFlow.dao.MemberDao;
+import com.project.ProjectFlow.dto.CustomStatus;
 import com.project.ProjectFlow.dto.impl.MemberDto;
 import com.project.ProjectFlow.entity.impl.MemberEntity;
 import com.project.ProjectFlow.service.MemberService;
@@ -23,7 +24,7 @@ public class MemberServiceImpl implements MemberService {
     private Mapping mapping;
 
     @Override
-    public SuccessStatus save(MemberDto dto) {
+    public CustomStatus save(MemberDto dto) {
         MemberEntity memberEntity = mapping.toMemberEntity(dto);
         memberDao.save(memberEntity);
         return new SuccessStatus(HttpStatus.CREATED.value(),"Member saved successfully!");

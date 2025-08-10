@@ -2,30 +2,20 @@ package com.project.ProjectFlow.dto.impl;
 
 import com.project.ProjectFlow.dto.CustomStatus;
 import com.project.ProjectFlow.util.Role;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.validation.constraints.Email;
+
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
 
 import java.time.LocalDateTime;
-
 
 public class MemberDto implements CustomStatus {
     private String id;
 
     @NotBlank(message = "Name is required")
-    @Pattern(regexp = "^[A-Za-z ]+$", message = "Name must contain only letters and spaces")
     private String name;
-    @NotBlank(message = "Email is required")
-    @Email(message = "Email should be valid")
-    @Pattern(regexp = "^[A-Za-z0-9._%+-]+@gmail\\.com$", message = "Email must be a Gmail address")
+
     private String email;
     private String avatar;
-
-
     private Role role;
-
     private String teamId;
     private String department;
     private boolean isActive;
@@ -54,19 +44,19 @@ public class MemberDto implements CustomStatus {
         this.id = id;
     }
 
-    public @NotBlank(message = "Name is required") @Pattern(regexp = "^[A-Za-z ]+$", message = "Name must contain only letters and spaces") String getName() {
+    public @NotBlank(message = "Name is required") String getName() {
         return name;
     }
 
-    public void setName(@NotBlank(message = "Name is required") @Pattern(regexp = "^[A-Za-z ]+$", message = "Name must contain only letters and spaces") String name) {
+    public void setName(@NotBlank(message = "Name is required") String name) {
         this.name = name;
     }
 
-    public @NotBlank(message = "Email is required") @Email(message = "Email should be valid") @Pattern(regexp = "^[A-Za-z0-9._%+-]+@gmail\\.com$", message = "Email must be a Gmail address") String getEmail() {
+    public String getEmail() {
         return email;
     }
 
-    public void setEmail(@NotBlank(message = "Email is required") @Email(message = "Email should be valid") @Pattern(regexp = "^[A-Za-z0-9._%+-]+@gmail\\.com$", message = "Email must be a Gmail address") String email) {
+    public void setEmail(String email) {
         this.email = email;
     }
 

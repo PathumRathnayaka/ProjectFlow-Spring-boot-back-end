@@ -1,10 +1,15 @@
 package com.project.ProjectFlow.controller;
 
 import com.project.ProjectFlow.customstatuscode.SuccessStatus;
+import com.project.ProjectFlow.dto.CustomStatus;
 import com.project.ProjectFlow.dto.impl.MemberDto;
 import com.project.ProjectFlow.service.imple.MemberServiceImpl;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -16,29 +21,21 @@ public class MemberController {
     MemberServiceImpl memberService;
 
 
+
     @PostMapping
-    public SuccessStatus saveUser(@RequestBody MemberDto memberDto){
+    public CustomStatus saveUser(@Valid @RequestBody MemberDto memberDto, BindingResult bindingResult){
+        if (bindingResult.hasErrors()) {
+            // Collect first error message (you can customize to collect all)
+            FieldError fieldError = bindingResult.getFieldErrors().get(0);
+            String errorMessage = fieldError.getDefaultMessage();
+
+            // Return validation error wrapped in SuccessStatus
+            return new SuccessStatus(HttpStatus.BAD_REQUEST.value(), errorMessage);
+        }
+
+        // No errors, proceed normally
         return memberService.save(memberDto);
     }
 
-    /*@GetMapping
-    public ResponseEntity<List<User>> getAllUser(){
-        return memberService.getUserAll();
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable String id){
-        return memberService.getUserById(id);
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable String id , @RequestBody MemberDto memberDto){
-        return userService.updateUser(id, memberDto);
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteUser (@PathVariable String id){
-        return userService.deleteUser(id);
-    }*/
 
 }
