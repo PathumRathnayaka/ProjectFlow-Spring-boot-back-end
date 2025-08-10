@@ -55,6 +55,12 @@ public class MemberController {
 
     }
 
+    @DeleteMapping("/{id}")
+    public CustomStatus deleteMember(@PathVariable("id") String id){
+        return memberService.delete(id);
+
+    }
+
     @GetMapping
     public List<MemberDto> getAllMembers(){
         return memberService.getAll();
