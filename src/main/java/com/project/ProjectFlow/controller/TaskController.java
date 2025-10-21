@@ -3,11 +3,10 @@ package com.project.ProjectFlow.controller;
 import com.project.ProjectFlow.customstatuscode.ErrorStatus;
 import com.project.ProjectFlow.customstatuscode.SuccessStatus;
 import com.project.ProjectFlow.dto.CustomStatus;
-import com.project.ProjectFlow.dto.impl.MemberDto;
-import com.project.ProjectFlow.service.imple.MemberServiceImpl;
+import com.project.ProjectFlow.dto.impl.TaskDto;
+import com.project.ProjectFlow.service.imple.TaskServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -16,55 +15,48 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/member")
+@RequestMapping("/task")
 @CrossOrigin(origins = "http://localhost:3000")
-public class MemberController {
+public class TaskController {
 
     @Autowired
-    MemberServiceImpl memberService;
-
-
+    TaskServiceImpl taskService;
 
     @PostMapping
-    public CustomStatus saveMember(@Valid @RequestBody MemberDto memberDto, BindingResult bindingResult){
+    public CustomStatus saveTask(@Valid @RequestBody TaskDto taskDto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             // Collect first error message (you can customize to collect all)
             FieldError fieldError = bindingResult.getFieldErrors().get(0);
             String errorMessage = fieldError.getDefaultMessage();
 
-            // Return validation error wrapped in SuccessStatus
+            // Return validation error wrapped in ErrorStatus
             return new ErrorStatus(HttpStatus.BAD_REQUEST.value(), errorMessage);
         }
 
         // No errors, proceed normally
-        return memberService.save(memberDto);
+        return taskService.save(taskDto);
     }
 
     @PutMapping("/{id}")
-    public CustomStatus updateMember(@Valid @RequestBody MemberDto memberDto, BindingResult bindingResult, @PathVariable String id){
-
+    public CustomStatus updateTask(@Valid @RequestBody TaskDto taskDto, BindingResult bindingResult, @PathVariable String id) {
         if (bindingResult.hasErrors()) {
             // Collect first error message (you can customize to collect all)
             FieldError fieldError = bindingResult.getFieldErrors().get(0);
             String errorMessage = fieldError.getDefaultMessage();
 
-            // Return validation error wrapped in SuccessStatus
+            // Return validation error wrapped in ErrorStatus
             return new ErrorStatus(HttpStatus.BAD_REQUEST.value(), errorMessage);
         }
-        return memberService.update(id,memberDto);
-
+        return taskService.update(id, taskDto);
     }
 
     @DeleteMapping("/{id}")
-    public CustomStatus deleteMember(@PathVariable("id") String id){
-        return memberService.delete(id);
-
+    public CustomStatus deleteTask(@PathVariable("id") String id) {
+        return taskService.delete(id);
     }
 
     @GetMapping
-    public List<MemberDto> getAllMembers(){
-        return memberService.getAll();
+    public List<TaskDto> getAllTasks() {
+        return taskService.getAll();
     }
-
-
 }
